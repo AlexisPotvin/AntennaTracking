@@ -1,5 +1,6 @@
 import math
 import servo
+import calcul
 
 def adafruitpwmvalue(pwmvalue, pwmfrequency):
         pulse = pwmvalue *1000
@@ -29,7 +30,7 @@ class Antenna():
 		self.yaw = 0
 		self.wyaw = 0
 		self.wpitch = 0
-		
+		self.bearingoffset = 0
 	def arrow (self,arrow) :
 		if arrow ==0 :
 			self.wpitch +=5
@@ -39,10 +40,11 @@ class Antenna():
 			self.wpitch -=5
 		elif arrow == 3:
 			self.wyaw -= 5
-	def Orientationoffset (self):
-		print "HI"		
-
-
+	def Orientationoffset (self,bearingoffset):
+		self.bearingoffset = bearingoffset
+    def angleoffsetcalc(self):
+        self.yaw = 
+    
 		
 class NewServo():
 

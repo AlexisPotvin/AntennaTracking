@@ -32,3 +32,24 @@ def bearing(lat1,lon1,lat2,lon2):
             tc1 = 0
 
     return tc1
+
+
+def bearingoffset(angle,bearingangleoffset):
+    
+    newangle = angle +180
+    nbearing = bearingangleoffset + 180
+    bearing = newangle - nbearing
+    
+    if newangle > nbearing +180:
+        bearing = 360 - bearing
+    elif newangle < nbearing -180:
+        bearing = 360 - bearign
+
+    if newangle < nbearing :
+        bearing = -bearing 
+    elif newangle > nbearing +180:
+        bearing = - bearing
+
+    return bearing
+
+
