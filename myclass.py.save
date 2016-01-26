@@ -12,12 +12,17 @@ def adafruitpwmvalue(pwmvalue, pwmfrequency):
 
 
 def getdelta(x1,y1,x2,y2):
+	print "slope", x1,y1, x2, y2
         slope = float(y2 - y1) / float(x2-x1)
+	print slope
         return slope
 
 def GetY(initval,slope,xval):
 	y = 0
+
+	print "init", initval
 	y = slope * xval
+	print slope , xval
 	y = y+initval
 	return int(y)
 
@@ -27,8 +32,7 @@ class Antenna():
 		self.roll =0
 		self.pitch =0
 		self.yaw = 0
-		self.wyaw = 0
-		self.wpitch = 0
+
 class NewServo():
 
 	def __init__(self,minangle,maxangle,minpwm,maxpwm,holdpwm,servofreq,channel):
@@ -45,19 +49,20 @@ class NewServo():
 		self.Angletolerance = 5
 		self.channel = channel
 	def Refresh (self,WantedAngle , CurrentAngle):
-		AngleCorrection = (WantedAngle - CurrentAngle)
+		z		AngleCorrection = (WantedAngle - CurrentAngle)
+		
 		if abs(AngleCorrection) >= self.Angletolerance :
 			ticks = GetY(self.init, self.delta, AngleCorrection)
 			servo.RefreshServo(ticks,self.channel)					
 		else :
 			ticks = adafruitpwmvalue(self.holdpwm,self.servofreq)
 			servo.RefreshServo(ticks,self.channel)
-		return ticks		
+		print ticks
 x = NewServo(0,90,1.2,1.5,1.9,100,0)
 
 
 
 
-
+print getdelta(1,2,2,4)
 adafruitpwmvalue(1.9,100)
 

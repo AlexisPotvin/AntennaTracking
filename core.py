@@ -1,9 +1,25 @@
 import Acc
 from myclass import Antenna
+from myclass import *
 import servo
 import time
+import arrows
+Antenna = Antenna()
+YawServo = NewServo(-180,180,1.1,1.9,1.5,100,0)
+PitchServo = NewServo(0,90,1.1,1.9,1.5,100,1)
 
-#Acc.ImuInit()
+YawServo.Refresh(2,10)
+while True:
+
+
+	Acc.ReadImu(Antenna,5)
+	arrows.get(Antenna)
+	tickyaw=YawServo.Refresh(Antenna.wyaw,Antenna.yaw)
+	tickpitch=PitchServo.Refresh(Antenna.wpitch,Antenna.pitch)
+	print "yawtick",tickyaw, "Pitchticks", tickpitch
+
+"""
+	#Acc.ImuInit()
 while True:
 	Acc.ReadImu(Antenna,5)
 	print Antenna.roll, Antenna.pitch, Antenna.yaw 
@@ -24,3 +40,4 @@ while True :
 	print "Je suis rendu"
 	
 	
+"""
