@@ -5,7 +5,7 @@ import time
 import threading
 
 gpsd = None 
-
+os.system("sudo gpsd /dev/ttyAMA0 -F /var/run/gpsd.sock")
 #os.system ('clear')
 
 class GpsPoller(threading.Thread):
