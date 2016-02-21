@@ -29,24 +29,21 @@ class Antenna():
 		self.yaw = 0
 		self.wyaw = 0
 		self.wpitch = 0
-		
+
 	def arrow (self,arrow) :
 		if arrow ==0 :
-			self.wpitch +=5
+			self.wpitch +=1
 		elif arrow == 1: 
-			self.wyaw +=5
+			self.wyaw +=1
 		elif arrow == 2:
-			self.wpitch -=5
+			self.wpitch -=1
 		elif arrow == 3:
-			self.wyaw -= 5
-	def Orientationoffset (self):
-		print "HI"		
-
-
+			self.wyaw -= 1
 		
+
 class NewServo():
 
-	def __init__(self,minangle,maxangle,minpwm,maxpwm,holdpwm,servofreq,channel,multiplication):
+	def __init__(self,minangle,maxangle,minpwm,maxpwm,holdpwm,servofreq,channel,mul):
 		self.delta = getdelta(maxangle,adafruitpwmvalue(maxpwm,servofreq),minangle,adafruitpwmvalue(minpwm,servofreq))
 		self.init= adafruitpwmvalue(holdpwm,servofreq)
 		self.currentangle=0
@@ -57,10 +54,9 @@ class NewServo():
 		self.minangle=minangle
 		self.maxangle=maxangle
 		self.servofreq = servofreq
-		self.Angletolerance = 2
+		self.Angletolerance = 0.1
 		self.channel = channel
-		self.servomultiplication = multiplication
-	#resposible to reflesing the servo to a certain directiron
+		self.servomultiplication = mul
 	def Refresh (self,WantedAngle , CurrentAngle):
 		AngleCorrection = (WantedAngle - CurrentAngle)
 		if abs(AngleCorrection) >= self.Angletolerance :
@@ -70,11 +66,11 @@ class NewServo():
 			ticks = adafruitpwmvalue(self.holdpwm,self.servofreq)
 			servo.RefreshServo(ticks,self.channel)
 		return ticks		
-#x = NewServo(0,90,1.2,1.5,1.9,100,0)
+x = NewServo(0,90,1.2,1.5,1.9,100,0)
 
 
 
 
 
-#adafruitpwmvalue(1.9,100)
+adafruitpwmvalue(1.9,100)
 

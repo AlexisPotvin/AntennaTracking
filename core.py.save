@@ -14,7 +14,7 @@ Antenna = Antenna()
 YawServo = NewServo(-180,180,1.1,1.9,1.5,100,0,3)
 PitchServo = NewServo(0,90,1.1,1.9,1.5,100,1,1)
 
-YawServo.Refresh(2,10)
+#YawServo.Refresh(2,10)
 while True:
 
 	arrowcode = -1
@@ -25,7 +25,9 @@ while True:
 
 	Acc.ReadImu(Antenna,5)
 	Antenna.arrow(arrowcode)
+
+
 	tickyaw=YawServo.Refresh(Antenna.wyaw,Antenna.yaw)
 	tickpitch=PitchServo.Refresh(Antenna.wpitch,Antenna.pitch)
-	print "yawtick",tickyaw, "Pitchticks", tickpitch
+ 	print "yawtick",tickyaw, "Pitchticks", tickpitch
 
