@@ -1,6 +1,7 @@
 import math
 import servo
 import calcul
+from UAVclass import UAV
 
 def adafruitpwmvalue(pwmvalue, pwmfrequency):
         pulse = pwmvalue *1000
@@ -31,7 +32,7 @@ class Antenna():
 		self.wyaw = 0
 		self.wpitch = 0
 		self.bearingoffset = 0
-	
+		self.uav = UAV()
 	def arrow (self,arrow) :
 		if arrow ==0 :
 			self.wpitch +=5
@@ -46,7 +47,6 @@ class Antenna():
     	def angleoffsetcalc(self):
         	self.yaw = calcul.bearingoffset(self.yaw,self.bearingoffset)
         	self.wyaw = calcul.bearingoffset(self.wyaw,self.bearingoffset)
-        
     	#def GPS_to_angle(self):
     		
     
@@ -54,7 +54,8 @@ class Antenna():
 class NewServo():
 
 	def __init__(self,minangle,maxangle,minpwm,maxpwm,holdpwm,servofreq,channel,multiplication):
-		self.delta = getdelta(maxangle,adafruitpwmvalue(maxpwm,servofreq),minangle,adafruitpwmvalue(minpwm,servofreq))
+		self.servomultiplication = multiplication
+		self.delta = getdelta(maxangle,adafruitpwmvalue(maxpwm,servofreq),minangle,adafruitpwmvalue(minpwm,servofreq))* self.servomultiplication
 		self.init= adafruitpwmvalue(holdpwm,servofreq)
 		self.currentangle=0
 		self.desireangle=0
@@ -66,12 +67,13 @@ class NewServo():
 		self.servofreq = servofreq
 		self.Angletolerance = 2
 		self.channel = channel
-		self.servomultiplication = multiplication
+		
+		
 	#resposible to reflesing the servo to a certain directiron
 	def Refresh (self,WantedAngle , CurrentAngle):
 		AngleCorrection = (WantedAngle - CurrentAngle)
 		if abs(AngleCorrection) >= self.Angletolerance :
-			ticks = GetY(self.init, self.delta,self.servomultiplication*AngleCorrection)
+			ticks = GetY(self.init, self.delta,self.servomultiplication)
 			servo.RefreshServo(ticks,self.channel)					
 		else :
 			ticks = adafruitpwmvalue(self.holdpwm,self.servofreq)
