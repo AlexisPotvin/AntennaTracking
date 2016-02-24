@@ -31,6 +31,7 @@ class Antenna():
 		self.wyaw = 0
 		self.wpitch = 0
 		self.bearingoffset = 0
+	
 	def arrow (self,arrow) :
 		if arrow ==0 :
 			self.wpitch +=5
@@ -42,8 +43,12 @@ class Antenna():
 			self.wyaw -= 5
 	def Orientationoffset (self,bearingoffset):
 		self.bearingoffset = bearingoffset
-    def angleoffsetcalc(self):
-        self.yaw = 
+    	def angleoffsetcalc(self):
+        	self.yaw = calcul.bearingoffset(self.yaw,self.bearingoffset)
+        	self.wyaw = calcul.bearingoffset(self.wyaw,self.bearingoffset)
+        
+    	#def GPS_to_angle(self):
+    		
     
 		
 class NewServo():
