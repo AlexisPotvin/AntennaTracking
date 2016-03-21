@@ -1,7 +1,7 @@
 
 import Acc
-from myclass import Antenna
-from myclass import *
+from antenna_class import Antenna
+from servo_class import NewServo
 import servo
 import time
 from keyboard import KBHit
