@@ -22,7 +22,7 @@ def GetY(initval,slope,xval):
 	y = slope * xval
 	y = y+initval
 	return int(y)
-
+""" moved to antenna_class
 class Antenna():
 
 	def __init__(self):
@@ -49,7 +49,7 @@ class Antenna():
         	self.wyaw = calcul.bearingoffset(self.wyaw,self.bearingoffset)
     	#def GPS_to_angle(self):
     		
-    
+ """  
 		
 class NewServo():
 
