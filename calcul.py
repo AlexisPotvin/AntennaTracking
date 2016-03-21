@@ -35,22 +35,15 @@ def pitch(lat_sat, long_sat,alt_sat, lat_drone, long_drone,alt_drone):
     return pitch_angle    
 
 
+
 def bearingoffset(angle,bearingangleoffset):
-    
-    newangle = angle +180
-    nbearing = bearingangleoffset + 180
-    bearing = newangle - nbearing
-    
-    if newangle > nbearing +180:
-        bearing = 360 - bearing
-    elif newangle < nbearing -180:
-        bearing = 360 - bearign
+    newbearing = angle
+    newbearing -= bearingangleoffset
+    if newbearing > 180 :
+        newbearing -= 360
+    if newbearing < -180:
+        newbearing +=360
 
-    if newangle < nbearing :
-        bearing = -bearing 
-    elif newangle > nbearing +180:
-        bearing = - bearing
-
-    return bearing
+    return newbearing
 
 
