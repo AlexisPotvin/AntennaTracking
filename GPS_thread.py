@@ -80,7 +80,3 @@ class UartGPS(threading.Thread):
         return self.lat
     def current_longitude(self):
         return self.long
-
-    def close_thread(self):
-        threading.thread.exit()
-        print "Thread has been killed"
