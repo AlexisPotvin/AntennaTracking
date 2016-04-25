@@ -23,12 +23,10 @@ class UAVgps(threading.Thread):
 
     def decode_data(self, data):
         jsonStr = json.loads(data)
-        if jsonStr['packet_id'] == 33:
-            self.alt = jsonStr['alt']
-            self.lat = jsonStr['lat']
-            self.long = jsonStr['lon']
+        if float(jsonStr['packet_id']) == 33:
+            self.alt = float(jsonStr['alt'])
+            self.lat = float(jsonStr['lat'])
+            self.long = float(jsonStr['lon'])
 
-x = UAVgps
-data = '{"packet_id" : "33", "alt" : "2", "lat" : "3", "lon" : "3"}'
-x.decode_data(data)
+
 
