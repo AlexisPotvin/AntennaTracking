@@ -2,7 +2,7 @@ import threading
 import gps
 import os
 
-class UartGPS():
+class UartGPS(threading.Thread):
 
     def __init__(self):
         threading.Thread.__init__(self)
