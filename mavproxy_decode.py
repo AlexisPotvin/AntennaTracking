@@ -10,7 +10,7 @@ class UAVgps(threading.Thread):
         threading.Thread.__init__(self)
         self.lat = 0
         self.alt = 0
-        self.long = 0
+        self.lon = 0
         self.data = None
         self.telemetryIP = 0
         self.telemetryPort = 0
@@ -28,14 +28,14 @@ class UAVgps(threading.Thread):
         return self.lat
 
     def uav_longitude(self):
-        return self.long
+        return self.lon
 
     def update_UAVgps(self):
         jsonStr = json.loads(self.data)
         if float(jsonStr['packet_id']) == 33:
             self.alt = float(jsonStr['alt'])/1000
             self.lat = float(jsonStr['lat'])/10000000
-            self.long = float(jsonStr['lon'])/10000000
+            self.lon = float(jsonStr['lon'])/10000000
     def update_UAVAttitude(self):
         jsonStr = json.loads(self.data)
         if float(jsonStr['packet_id']) == 30:
