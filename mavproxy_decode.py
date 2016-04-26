@@ -1,9 +1,9 @@
-__author__ = 'User'
+hor__ = 'User'
 
 import json
 import threading
 import socket
-
+import math
 class UAVgps(threading.Thread):
 
     def __init__(self):
@@ -15,6 +15,11 @@ class UAVgps(threading.Thread):
         self.telemetryIP = 0
         self.telemetryPort = 0
         self.telemetrySocket = None
+        self.time_boot_ms = 0
+        self.pitch= 0
+        self.yaw = 0
+        self.roll = 0
+
 
     def uav_altitude(self):
         return self.alt
@@ -26,11 +31,18 @@ class UAVgps(threading.Thread):
         return self.long
 
     def update_UAVgps(self):
-        jsonStr = json.loads(data)
+        jsonStr = json.loads(self.data)
         if float(jsonStr['packet_id']) == 33:
-            self.alt = float(jsonStr['alt'])
-            self.lat = float(jsonStr['lat'])
-            self.long = float(jsonStr['lon'])
+            self.alt = float(jsonStr['alt'])/1000
+            self.lat = float(jsonStr['lat'])/10000000
+            self.long = float(jsonStr['lon'])/10000000
+    def update_UAVAttitude(self):
+        jsonStr = json.loads(self.data)
+        if float(jsonStr['packet_id']) == 30:
+            self.time_boot_ms = float(jsonStr['time_boot_ms'])
+            self.pitch= math.degrees(float(jsonStr['pitch']))
+            self.yaw = math.degrees(float(jsonStr['yaw']))
+            self.roll = math.degrees(float(jsonStr['roll']))
 
     def set_telemetry_IP (self, host_IP):
         self.telemetryIP = host_IP
@@ -44,3 +56,4 @@ class UAVgps(threading.Thread):
 
     def recieve_telemetry(self):
         self.data, addr = self.telemetrySocket.recvfrom(4096)
+
