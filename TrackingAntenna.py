@@ -6,7 +6,7 @@ import servo
 import time
 from keyboard import KBHit
 from mavproxy_decode import UAVgps
-from Threaded_GPS import uartGPS
+from GPS_thread import UartGPS
 
 
 
@@ -18,7 +18,7 @@ antenna = Antenna()
 YawServo = NewServo(-180,180,1.1,1.9,1.5,100,0,3)
 PitchServo = NewServo(0,90,1.1,1.9,1.5,100,1,1)
 
-antennaGps = uartGPS()
+antennaGps = UartGPS()
 
 uav = UAVgps()
 uav.set_telemetry_IP("127.0.0.1")
@@ -31,6 +31,9 @@ antennaGps.GPS_coordinate_avg(10)
 antenna.antennaLat = antennaGPS.lat
 antenna.antennaLon = antennaGPS.lon
 antenna.antennaAlt = antennaGps.alt
+
+Acc.ReadImu(antenna,5)
+antenna.orientationoffset(antenna.yaw)
 
 while True:
 	
@@ -46,6 +49,7 @@ while True:
 	antenna.upateYawFromGPS()
 	antenna.updatePitchFromGPS()
 	#set the antenna to the correcte angle
+	antenna.angleoffsetcalc()
 	tickyaw=YawServo.Refresh(antenna.wyaw,antenna.yaw)
 	tickpitch=PitchServo.Refresh(antenna.wpitch,antenna.pitch)
 	print "yawtick",tickyaw, "Pitchticks", tickpitch

@@ -14,7 +14,7 @@ class UAV():
 	def updatelong (self, longitude) :
 		self.longitude = longitude
 
-	def updatealt (self,altitude)
+	def updatealt (self,altitude):
 		self.altitude = altitude
 
 	

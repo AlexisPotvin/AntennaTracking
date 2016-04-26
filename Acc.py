@@ -40,13 +40,10 @@ if k==0:
 	print("Recommended Poll Interval: %dmS\n" % poll_interval)
 
 	k=1
-<<<<<<< HEAD
 
-def ReadImu(x):
-=======
 #Read Imu number for X time and return the average value
 def ReadImu(accel,x):
->>>>>>> 664ce69ef23d0245994987a05b55c3ceb0fad4eb
+
 
 	r=0
 	p=0
@@ -79,8 +76,6 @@ def ReadImu(accel,x):
 	return 1		
 	
 
-while(1):
-	ReadImu(1)
 
 
 
