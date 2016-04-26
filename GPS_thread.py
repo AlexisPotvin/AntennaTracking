@@ -12,7 +12,7 @@ class UartGPS(threading.Thread):
         self.gpssession.stream(gps.WATCH_ENABLE | gps.WATCH_NEWSTYLE)
         self.lat = 0
         self.alt = 0
-        self.long = 0
+        self.lon = 0
 
     def update_GPS_coordinates(self):
         try:
@@ -21,7 +21,7 @@ class UartGPS(threading.Thread):
                 if hasattr(report, 'alt'):
                     self.alt = report.alt
                 if hasattr(report, 'lon'):
-                    self.long = report.lon
+                    self.lon = report.lon
                 if hasattr(report, 'lat'):
                     self.lat = report.lat
 
@@ -65,7 +65,7 @@ class UartGPS(threading.Thread):
         except ZeroDivisionError:
             print "Lat_div_0"
         try:
-            self.long = lon_temp / lon_nb_value
+            self.lon = lon_temp / lon_nb_value
         except ZeroDivisionError:
             print "Lon_div_0"
         try:
@@ -73,10 +73,3 @@ class UartGPS(threading.Thread):
         except ZeroDivisionError:
             print "alt_div_0"
 
-    def current_altitude(self):
-        return self.alt
-
-    def current_latitude(self):
-        return self.lat
-    def current_longitude(self):
-        return self.long
