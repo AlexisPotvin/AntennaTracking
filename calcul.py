@@ -1,55 +1,49 @@
 import math
 
 
+def bearing(lat_sat, long_sat, lat_drone, long_drone):
+    lat_sat = math.radians(lat_sat)
+    lat_drone = math.radians(lat_drone)
+    long_sat = math.radians(long_sat)
+    long_drone = math.radians(long_drone)
+    delta_long = long_drone - long_sat
+    delta_lat = lat_drone - lat_sat
+    y = math.sin(delta_long)*math.cos(lat_drone)
+    x = math.cos(lat_sat)*math.sin(lat_drone) - \
+    math.sin(lat_sat)*math.cos(lat_drone)*math.cos(delta_long)
+    #plage de -180 a 180
+    bearing_initial = math.degrees(math.atan2(y, x))
+    #Pour le mettre dans le plage de 0 a 360
+    #bearing_360=(bearing_initial+360)%360
+    return bearing_initial
+    
+def pitch(lat_sat, long_sat,alt_sat, lat_drone, long_drone,alt_drone):
+    R = 6371000
+    lat_sat = math.radians(lat_sat)
+    lat_drone = math.radians(lat_drone)
+    long_sat = math.radians(long_sat)
+    long_drone = math.radians(long_drone)
+    delta_long = long_drone - long_sat
+    delta_lat = lat_drone - lat_sat
+    delta_alt = alt_drone-alt_sat
+    a = math.pow(math.sin(delta_lat/2),2) + math.cos(lat_sat) * math.cos(lat_drone) * math.pow(math.sin(delta_long/2),2)
+    c = 2 * math.atan2(math.sqrt(a),math.sqrt(1-a))
+    d = R * c
+    pitch_angle = math.atan2(delta_alt,d)
+    pitch_angle = math.degrees(pitch_angle)
 
-def bearing(lat1,lon1,lat2,lon2):
+    return pitch_angle    
 
-    dlat = lat2 - lat1
-    dlon = lon2 - lon1
-    y = math.sin(lon2-lon1)*math.cos(lat2)
-    x = math.cos(lat1)*math.sin(lat2)-math.sin(lat1)*math.cos(lat2)*(math.cos(lon2-lon1))
-    if y > 0:
-        if x > 0:
-            tc1 = math.degrees(math.atan(y/x))
-        if x < 0:
-            tc1 = 180 - math.degrees(math.atan(-y/x))
-        if x == 0:
-            tc1 = 90
-    if y < 0:
-
-        if x > 0:
-            tc1 = -math.degrees(math.atan(-y/x))
-        if x < 0:
-            tc1 = math.degrees(math.atan(y/x))-180
-        if x == 0:
-            tc1 = 270
-    if y == 0:
-        if x > 0:
-            tc1 = 0
-        if x < 0:
-            tc1 = 180
-        if x == 0:
-            tc1 = 0
-
-    return tc1
 
 
 def bearingoffset(angle,bearingangleoffset):
-    
-    newangle = angle +180
-    nbearing = bearingangleoffset + 180
-    bearing = newangle - nbearing
-    
-    if newangle > nbearing +180:
-        bearing = 360 - bearing
-    elif newangle < nbearing -180:
-        bearing = 360 - bearign
+    newbearing = angle
+    newbearing -= bearingangleoffset
+    if newbearing > 180 :
+        newbearing -= 360
+    if newbearing < -180:
+        newbearing +=360
 
-    if newangle < nbearing :
-        bearing = -bearing 
-    elif newangle > nbearing +180:
-        bearing = - bearing
-
-    return bearing
+    return newbearing
 
 
