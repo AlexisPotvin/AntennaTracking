@@ -40,7 +40,7 @@ if k==0:
 
 	k=1
 
-def ReadImu(accel,x):
+def ReadImu(x):
 
 	r=0
 	p=0
@@ -52,19 +52,23 @@ def ReadImu(accel,x):
 	
 			data = imu.getIMUData()
 			fusionPose = data["fusionPose"]
-			"""print("r: %f p: %f y: %f" %(math.degrees(fusionPose[0]),
-			math.degrees(fusionPose[1]),math.degrees(fusionPose[2])))"""
-	
-			r= r+ math.degrees(fusionPose[0])			
-			p= p+ math.degrees(fusionPose[1])
-			y= y+ math.degrees(fusionPose[2])
-			i = i+1
+			print("r: %f p: %f y: %f" %(math.degrees(fusionPose[0]),
+			math.degrees(fusionPose[1]),math.degrees(fusionPose[2])))	
+			#r= r+ math.degrees(fusionPose[0])			
+			#p= p+ math.degrees(fusionPose[1])
+			#y= y+ math.degrees(fusionPose[2])
+			#i = i+1
 	
 
-	accel.roll= r/x
-	accel.pitch= p/x
-	accel.yaw= y/x
+	#accel.roll= r/x
+	#accel.pitch= p/x
+	#accel.yaw= y/x
 
 	return 1		
 	
+
+while(1):
+	ReadImu(1)
+
+
 
