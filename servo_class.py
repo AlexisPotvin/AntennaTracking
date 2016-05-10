@@ -65,7 +65,7 @@ class NewServo():
 		self.minangle=minangle
 		self.maxangle=maxangle
 		self.servofreq = servofreq
-		self.Angletolerance = 2
+		self.Angletolerance = 15
 		self.channel = channel
 		
 		
@@ -73,7 +73,7 @@ class NewServo():
 	def Refresh (self,WantedAngle , CurrentAngle):
 		AngleCorrection = (WantedAngle - CurrentAngle)
 		if abs(AngleCorrection) >= self.Angletolerance :
-			ticks = GetY(self.init, self.delta,self.servomultiplication)
+			ticks = GetY(self.init, self.delta,AngleCorrection)
 			servo.RefreshServo(ticks,self.channel)					
 		else :
 			ticks = adafruitpwmvalue(self.holdpwm,self.servofreq)

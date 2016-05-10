@@ -32,9 +32,9 @@ class Antenna():
         	self.wyaw = calcul.bearingoffset(self.wyaw,self.bearingoffset)
         	
     	def updateYawFromGPS(self):
-    		self.wyaw = calcul.bearing(self.antennaLLat, self.antennaLon, self.uavLat, self.uavLon)
+    		self.wyaw = calcul.bearing(self.antennaLat, self.antennaLon, self.uavLat, self.uavLon)
     	
     	def updatePitchFromGPS(self):
-    		self.wpitch = calcul.pitch(self.antennaLLat, self.antennaLon, self.antennaAlt, self.uavLat, self.uavLon, self.uavAlt)
+    		self.wpitch = calcul.pitch(self.antennaLat, self.antennaLon, self.antennaAlt, self.uavLat, self.uavLon, self.uavAlt)
     		
 	

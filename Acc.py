@@ -55,27 +55,26 @@ def ReadImu(accel,x):
 	
 			data = imu.getIMUData() # Read IMU data
 			fusionPose = data["fusionPose"]
-			print("r: %f p: %f y: %f" %(math.degrees(fusionPose[0]),
-			math.degrees(fusionPose[1]),math.degrees(fusionPose[2])))	
+			#print("r: %f p: %f y: %f" %(math.degrees(fusionPose[0]),
+			#math.degrees(fusionPose[1]),math.degrees(fusionPose[2])))	
 			r= r+ math.degrees(fusionPose[0])			
 			p= p+ math.degrees(fusionPose[1])
 			y= y+ math.degrees(fusionPose[2])
 			i = i+1
-			"""print("r: %f p: %f y: %f" %(math.degrees(fusionPose[0]),
-			math.degrees(fusionPose[1]),math.degrees(fusionPose[2])))"""
-			#Average calculation
-			r= r+ math.degrees(fusionPose[0])			
-			p= p+ math.degrees(fusionPose[1])
-			y= y+ math.degrees(fusionPose[2])
-			i = i+1
+		
 
-	accel.roll= r/x
-	accel.pitch= p/x
-	accel.yaw= y/x
+	accel.roll = r/x
+	accel.pitch = p/x
+	accel.yaw = y/x
 
 	return 1		
 	
 
 
 
-
+def emptyIMUBuff():
+	i =0
+	while i<100:
+		imu.IMURead()
+		i +=1
+	

@@ -2,12 +2,11 @@ import threading
 import gps
 import os
 
-class UartGPS(threading.Thread):
+class UartGPS():
 
     def __init__(self):
-        threading.Thread.__init__(self)
-        os.system("killall gpsd")
-        os.system("sudo gpsd /dev/tty/AMA0 -F /var/run/gpsd.sock")
+#        os.system("sudo killall gpsd")
+#        os.system("sudo gpsd /dev/tty/AMA0 -F /var/run/gpsd.sock")
         self.gpssession = gps.gps("localhost", "2947")
         self.gpssession.stream(gps.WATCH_ENABLE | gps.WATCH_NEWSTYLE)
         self.lat = 0
@@ -50,7 +49,6 @@ class UartGPS(threading.Thread):
                     if hasattr(report, 'lon'):
                         lon_temp += report.lon
                         lon_nb_value += 1
-
                     if hasattr(report, 'lat'):
                         lat_temp += report.lat
                         lat_nb_value += 1

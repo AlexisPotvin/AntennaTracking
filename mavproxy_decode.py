@@ -52,8 +52,10 @@ class UAVgps(threading.Thread):
 
     def create_bind_socket(self):
         self.telemetrySocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # UDP
-        self.telemetrySocket.bind((self.telemetryIP, self.telemetryPort))
+        #self.telemetrySock = socket.socket()
+	self.telemetrySocket.bind((self.telemetryIP, self.telemetryPort))
 
     def recieve_telemetry(self):
         self.data, addr = self.telemetrySocket.recvfrom(4096)
+
 
