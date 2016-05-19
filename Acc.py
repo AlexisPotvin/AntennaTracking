@@ -71,10 +71,9 @@ def ReadImu(accel,x):
 	
 
 
-
-def emptyIMUBuff():
-	i =0
-	while i<100:
-		imu.IMURead()
-		i +=1
-	
+#return a array of 3 angle : first : roll 2nd : pitch , 3rd : yaw
+def ReadSingleIMU():
+	if imu.IMURead():
+		ata = imu.getIMUData() # Read IMU data
+		fusionPose = data["fusionPose"]
+	return fusionPose
