@@ -46,7 +46,7 @@ antenna.Orientationoffset(antenna.yaw)
 print "alt", antenna.antennaAlt, "lon:", antenna.antennaLon,"lat", antenna.antennaLat
 print "offset", antenna.bearingoffset
 
-
+Accel.run()
 while True:
 	try:
 		print "antennaalt", antenna.antennaAlt
