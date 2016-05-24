@@ -15,8 +15,9 @@ class Antenna():
 		self.antennaAlt = 0
 		self.antennaLon = 0
 		self.antennaLat = 0
-		
-	def arrow (self,arrow) :
+		self.declination = -14.52
+
+	def arrow (self,arrow): 
 		if arrow ==0 :
 			self.wpitch +=5
 		elif arrow == 1: 
@@ -37,4 +38,5 @@ class Antenna():
     	def updatePitchFromGPS(self):
     		self.wpitch = calcul.pitch(self.antennaLat, self.antennaLon, self.antennaAlt, self.uavLat, self.uavLon, self.uavAlt)
     		
-	
+	def magneticDeclinationUpdate(self):
+		self.wyaw = self.wyaw - self.declination

@@ -93,7 +93,8 @@ while True:
 
 		#set the antenna to the correcte angle
 #		antenna.angleoffsetcalc()
-		
+		antenna.magneticDeclinationUpdate()
+
 		tickyaw=YawServo.Refresh(antenna.wyaw,antenna.yaw)
 		tickpitch=PitchServo.Refresh(antenna.wpitch,antenna.pitch)
 		#print "yawtick",tickyaw, "Pitchticks", tickpitch
