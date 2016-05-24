@@ -74,6 +74,13 @@ def ReadImu(accel,x):
 #return a array of 3 angle : first : roll 2nd : pitch , 3rd : yaw
 def ReadSingleIMU():
 	if imu.IMURead():
-		ata = imu.getIMUData() # Read IMU data
+		data = imu.getIMUData() # Read IMU data
 		fusionPose = data["fusionPose"]
-	return fusionPose
+#		answer.append(fusionPose)
+#	return fusionPose
+		time.sleep(imu.IMUGetPollInterval()*0.001 ) 
+		return fusionPose
+	else:
+		time.sleep(imu.IMUGetPollInterval()*0.001)
+		return None
+	

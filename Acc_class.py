@@ -21,14 +21,16 @@ class Accel (threading.Thread):
 	def run(self):
 		try:
 			while True:
-				fusionPose=Acc.ReadSingleIMU()
+				fusionPose = Acc.ReadSingleIMU()
+				if fusionPose != None :
 					self.roll = math.degrees(fusionPose[0])
 					self.pitch = math.degrees(fusionPose[1])
 					self.yaw = math.degrees(fusionPose[2])
-					if self.kill == True:
-						break
+					#print "hello" , self.yaw
+				if self.kill == True:
+					break
 					
-		except KeyboardInterropt:
+		except KeyboardInterrupt:
 			 pass
 				  
 
