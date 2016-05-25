@@ -36,6 +36,14 @@ class UAVgps(threading.Thread):
             self.alt = float(jsonStr['alt'])/1000
             self.lat = float(jsonStr['lat'])/10000000
             self.lon = float(jsonStr['lon'])/10000000
+
+    def update_UAVRawgps(self):
+        jsonStr = json.loads(self.data)
+        if float(jsonStr['packet_id']) == 24:
+            self.alt = float(jsonStr['alt'])/1000
+            self.lat = float(jsonStr['lat'])/10000000
+            self.lon = float(jsonStr['lon'])/10000000
+
     def update_UAVAttitude(self):
         jsonStr = json.loads(self.data)
         if float(jsonStr['packet_id']) == 30:
@@ -64,6 +72,7 @@ class UAVgps(threading.Thread):
                 self.recieve_telemetry()
                 self.update_UAVgps()
                 self.update_UAVAttitude()
+                self.update_UAVRawgps()
                 if self.kill == True:
                         break
         except KeyboardInterrupt:
