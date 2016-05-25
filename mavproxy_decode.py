@@ -19,7 +19,7 @@ class UAVgps(threading.Thread):
         self.pitch= 0
         self.yaw = 0
         self.roll = 0
-	self.Kill = False
+	    self.kill = False
 
     def uav_altitude(self):
         return self.alt
@@ -57,9 +57,22 @@ class UAVgps(threading.Thread):
 
     def recieve_telemetry(self):
         self.data, addr = self.telemetrySocket.recvfrom(4096)
-    
+
     def run(self):
-        while True:
-            self.recieve_telemetry()
-            self.update_UAVgps()
-            self.update_UAVAttitude()
+        try:
+            while True:
+                self.recieve_telemetry()
+                self.update_UAVgps()
+                self.update_UAVAttitude()
+                if self.kill == True:
+                        break
+        except KeyboardInterrupt:
+            self.kill = True
+
+
+
+
+
+
+
+

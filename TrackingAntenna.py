@@ -35,7 +35,7 @@ print  "bind done"
 
 #init Antenna Gps coordinates
 """
-antennaGps.GPS_coordinate_avg(2)
+antennaGps.GPS_coordinate_avg(10)
 antenna.antennaLat = antennaGps.lat
 antenna.antennaLon = antennaGps.lon
 antenna.antennaAlt = antennaGps.alt
@@ -47,8 +47,9 @@ antenna.antennaAlt = 20.453
 """
 Acc.ReadImu(antenna,5)
 antenna.Orientationoffset(antenna.yaw)
-#start the imu data 
+
 Accel.start()
+uav.start()
 
 while True:
 
@@ -97,8 +98,9 @@ while True:
 
 		tickyaw=YawServo.Refresh(antenna.wyaw,antenna.yaw)
 		tickpitch=PitchServo.Refresh(antenna.wpitch,antenna.pitch)
-		#print "yawtick",tickyaw, "Pitchticks", tickpitch
+
 		time.sleep(0.2)
+
 		os.system("clear")
 		print "UAV Latitude\t", antenna.uavLat
 		print "UAV Longitude\t", antenna.uavLon
@@ -115,4 +117,5 @@ while True:
 
 	except (KeyboardInterrupt, SystemExit):
 		Accel.kill = True
-		raise
+		uav.kill = True
+		break

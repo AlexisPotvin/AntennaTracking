@@ -37,8 +37,8 @@ class UartGPS():
         alt_temp = 0
         lon_temp = 0
         lat_temp = 0
-
-        for i in range(nb_iterations):
+        i = 0
+        while i < nb_iterations:
             try:
                 report = self.gpssession.next()
                 if report['class'] == 'TPV':
@@ -52,12 +52,15 @@ class UartGPS():
                     if hasattr(report, 'lat'):
                         lat_temp += report.lat
                         lat_nb_value += 1
+                    i += 1
+                print "GPS Progress", i, "/", nb_iterations
 
             except KeyError:
                 pass
             except StopIteration:
                 self.gpssession = None
                 print "GPS has terminated"
+
         try:
             self.lat = lat_temp / lat_nb_value
         except ZeroDivisionError:
