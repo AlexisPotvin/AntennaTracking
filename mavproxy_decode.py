@@ -19,7 +19,7 @@ class UAVgps(threading.Thread):
         self.pitch= 0
         self.yaw = 0
         self.roll = 0
-	    self.kill = False
+	self.kill = False
 
     def uav_altitude(self):
         return self.alt
@@ -73,8 +73,8 @@ class UAVgps(threading.Thread):
                 self.update_UAVgps()
                 self.update_UAVAttitude()
                 self.update_UAVRawgps()
-                if self.kill == True:
-                        break
+		if self.kill == True:
+                	break
         except KeyboardInterrupt:
             self.kill = True
 

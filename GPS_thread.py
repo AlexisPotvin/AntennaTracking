@@ -38,28 +38,29 @@ class UartGPS():
         lon_temp = 0
         lat_temp = 0
         i = 0
-        while i < nb_iterations:
-            try:
-                report = self.gpssession.next()
-                if report['class'] == 'TPV':
-                    if hasattr(report, 'alt'):
-                        alt_temp += report.alt
-                        alt_nb_value += 1
+	while i < nb_iterations:
+		try:
+                	report = self.gpssession.next()
+                	if report['class'] == 'TPV':
+                    		if hasattr(report, 'alt'):
+                        		alt_temp += report.alt
+                        		alt_nb_value += 1
 
-                    if hasattr(report, 'lon'):
-                        lon_temp += report.lon
-                        lon_nb_value += 1
-                    if hasattr(report, 'lat'):
-                        lat_temp += report.lat
-                        lat_nb_value += 1
-                    i += 1
-                print "GPS Progress", i, "/", nb_iterations
+                    		if hasattr(report, 'lon'):
+                        		lon_temp += report.lon
+                        		lon_nb_value += 1
+                    		if hasattr(report, 'lat'):
+                        		lat_temp += report.lat
+                    			lat_nb_value += 1
+			
+				i += 1
+                		print "GPS Progress", i, "/", nb_iterations
 
-            except KeyError:
-                pass
-            except StopIteration:
-                self.gpssession = None
-                print "GPS has terminated"
+            	except KeyError:
+                	pass
+            	except StopIteration:
+                	self.gpssession = None
+                	print "GPS has terminated"
 
         try:
             self.lat = lat_temp / lat_nb_value

@@ -9,6 +9,7 @@ from mavproxy_decode import UAVgps
 from GPS_thread import UartGPS
 import os
 from file import gpsreader
+import sys
 
 anttxt = gpsreader('antgps.txt')
 uavtxt = gpsreader('uavgps.txt')
@@ -34,12 +35,12 @@ uav.create_bind_socket()
 print  "bind done"
 
 #init Antenna Gps coordinates
-"""
+
 antennaGps.GPS_coordinate_avg(10)
 antenna.antennaLat = antennaGps.lat
 antenna.antennaLon = antennaGps.lon
 antenna.antennaAlt = antennaGps.alt
-"""
+
 """
 antenna.antennaLat = 45.4958755
 antenna.antennaLon = -73.5633529
@@ -51,26 +52,19 @@ antenna.Orientationoffset(antenna.yaw)
 Accel.start()
 uav.start()
 
-while True:
-
-	try:	
-		"""
-		uav.recieve_telemetry()
-                uav.update_UAVgps()
-                uav.update_UAVAttitude()
-                
-
-		"""
-
-		anttxt.readgps()
-		antenna.antennaLat = anttxt.Lat
-		antenna.antennaLon = anttxt.Lon
-		antenna.antennaAlt = anttxt.Alt
+try:
+	while True:
+                		
 		
-		uavtxt.readgps()
-		antenna.uavLat = uavtxt.Lat
-		antenna.uavLon = uavtxt.Lon
-		antenna.uavAlt = uavtxt.Alt
+		#anttxt.readgps()
+		#antenna.antennaLat = anttxt.Lat
+		#antenna.antennaLon = anttxt.Lon
+		#antenna.antennaAlt = anttxt.Alt
+				
+#		uavtxt.readgps()
+#		antenna.uavLat = uavtxt.Lat
+#		antenna.uavLon = uavtxt.Lon
+#		antenna.uavAlt = uavtxt.Alt
 		
 		#read current position
 		try:
@@ -115,7 +109,8 @@ while True:
 		print "yaw tick \t", tickyaw
 		print "pitch tick \t", tickpitch
 
-	except (KeyboardInterrupt, SystemExit):
-		Accel.kill = True
-		uav.kill = True
-		break
+except (KeyboardInterrupt, SystemExit):
+	Accel.kill = True
+	uav.kill = True
+	raise SystemExit
+
